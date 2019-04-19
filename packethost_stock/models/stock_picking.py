@@ -7,8 +7,16 @@ class StockPickingType(models.Model):
     _inherit = 'stock.picking.type'
 
     show_on_picking = fields.Boolean('Show on Picking')
-    no_show_location_on_picking = fields.Boolean('Not Show Source Location on Picking')
-    no_show_location_dest_on_picking = fields.Boolean('Not Show Destination Location on Picking')
+    no_show_location_on_picking = fields.Boolean('Not Show Selectable Source Location on Picking',
+                                                 help='When this box is checked, '
+                                                      'source location for this operation type will not show as '
+                                                      'a dropdown selectable option on transfer form, '
+                                                      'but will be logged in the chatter.')
+    no_show_location_dest_on_picking = fields.Boolean('Not Show Selectable Destination Location on Picking',
+                                                      help='When this box is checked, '
+                                                      'destination location for this operation type will not show as '
+                                                      'a dropdown selectable option on transfer form, '
+                                                      'but will be logged in the chatter.')
 
 
 class StockPicking(models.Model):
