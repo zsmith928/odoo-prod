@@ -2,7 +2,7 @@
 {
     'name': 'Packet Host: Purchase Customization',
     'summary': 'Packet Host : RFQ Product Lines on Email Template',
-    'description':"""
+    'description': """
     Task ID: 1966636
     New email template to send RFQs should include product lines with the following information:
     - "Notes" (x_studio_notes): Studio field on RFQ
@@ -16,8 +16,9 @@
     'license': 'OEEL-1',
     'author': 'Odoo Inc',
     'version': '0.1',
-    'depends': ['purchase', 'mail'],
+    'depends': ['purchase_stock', 'mail'],
     'data': [
         'data/mail_template_data.xml',
+        'data/mail_contextual_actions.xml',
     ],
 }

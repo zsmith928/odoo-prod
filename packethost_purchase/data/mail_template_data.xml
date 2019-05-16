@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="1">
-        <record id="email_template_new_inventory_purchase" model="mail.template">
+    <data noupdate="0">
+        <record id="email_template_new_inventory_packethost" model="mail.template">
             <field name="name">Purchase Order: New Inventory</field>
             <field name="model_id" ref="purchase.model_purchase_order"/>
             <field name="subject">New Inventory${(object.notes and ' - ' + object.x_studio_notes) or '' }</field>
             <field name="email_from">${object.sudo().create_uid.email_formatted | safe}</field>
             <field name="email_from">help@packet.com</field>
             <field name="partner_to">${object.partner_id.id}</field>
-            <field name="body_html" type="html"><![CDATA[
+            <field name="body_html" type="html">
 <div style="margin: 0px; padding: 0px;">
     <p style="margin: 0px; padding: 0px; font-size: 13px;">New inventory for ${object.picking_type_id.warehouse_id.name}</p>
     <p style="margin: 0px; padding: 0px; font-size: 13px;">Vendor: ${object.partner_id.name}</p>
@@ -20,10 +20,9 @@
     </ul>
     <br/>
 </div>
-]]>
             </field>
-            <!-- <field name="report_template" ref="report_purchase_quotation"/> -->
-            <!-- <field name="report_name">RFQ_${(object.name or '').replace('/','_')}</field> -->
+            <field name="report_template" ref="purchase.report_purchase_quotation"/>
+            <field name="report_name">RFQ_${(object.name or '').replace('/','_')}</field>
             <field name="lang">${object.partner_id.lang}</field>
             <field name="user_signature" eval="False"/>
             <field name="auto_delete" eval="True"/>
