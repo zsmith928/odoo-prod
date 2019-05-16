@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <!-- Create Send Email action using the custom template, and add contextual action on PO. -->
+        <!-- This replicates records created by mail/models/mail_template.py#create_action() -->
+        <!-- NOTE: We use both act_window and record tags for the same record because:
+                    - ref() in context only seems to work in act_window tag, not record tag
+                    - ref= attribute only seems to work in record tag, not act_window tag -->
+        <act_window name="Send New Inventory Email"
+            id="action_email_new_inventory_packethost"
+            res_model="mail.compose.message"
+            src_model="purchase.order"
+            view_type="form"
+            view_mode="form,tree"
+            target="new"
+            context="{
+                        'default_composition_mode': 'mass_mail',
+                        'default_template_id' : ref('packethost_purchase.email_template_new_inventory_packethost'),
+                        'default_use_template': True
+                    }"
+        />
+        <record id="action_email_new_inventory_packethost" model="ir.actions.act_window">
+            <field name="view_id" ref="mail.email_compose_message_wizard_form"/>
+            <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+        </record>
+        <!-- Create link to action on email template -->
+        <record id="email_template_new_inventory_packethost" model="mail.template">
+            <field name="ref_ir_act_window" ref="packethost_purchase.action_email_new_inventory_packethost"/>
+        </record>
+    </data>
+</odoo>
