@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="view_stock_view_picking_form_packethost" model="ir.ui.view">
+            <field name="name">stock_view_picking_form_packethost</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <!--we first replace the picking type since we want to move it somewhere else-->
+                <xpath expr="//field[@name='picking_type_id']" position="replace"/>
+
+                <xpath expr="//field[@name='location_id']" position="before">
+                    <field name="warehouse_id" attrs="{'readonly': [('state', '!=', 'draft')], 'required': [('state', '=', 'draft')]}"/>
+                    <field name="no_show_location_on_picking" invisible="1"/>
+                    <field name="no_show_location_dest_on_picking" invisible="1"/>
+                    <field name="picking_type_id" string="Task" attrs="{'readonly': [('state', '!=', 'draft')]}" domain="[('warehouse_id', '=', warehouse_id), ('show_on_picking', '=', True)]"/>
+                </xpath>
+
+                <xpath expr="//field[@name='location_id']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', ('picking_type_code','=','incoming'), ('no_show_location_on_picking', '=', True)], 'readonly': [('state','not in',['draft'])]}
+                    </attribute>
+                </xpath>
+                <xpath expr="//field[@name='location_dest_id']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', ('picking_type_code','=','outgoing'), ('no_show_location_dest_on_picking', '=', True)], 'readonly': [('state','not in',['draft'])]}
+                    </attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_stock_view_picking_type_form_packethost" model="ir.ui.view">
+            <field name="name">stock_view_picking_type_form_packethost</field>
+            <field name="model">stock.picking.type</field>
+            <field name="inherit_id" ref="stock.view_picking_type_form"/>
+            <field name="arch" type="xml">
+              <xpath expr="//field[@name='show_operations']" position="after">
+                  <field name="show_on_picking"/>
+                  <field name="no_show_location_on_picking"/>
+                  <field name="no_show_location_dest_on_picking"/>
+              </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>
+
