@@ -3,6 +3,7 @@
 
 from odoo import models, fields, api
 
+
 class Partner(models.Model):
     _inherit = "res.partner"
 
@@ -13,4 +14,7 @@ class Partner(models.Model):
     @api.depends("street", "street2")
     def _compute_street_address(self):
         for partner in self:
-            partner.street_address = "{}\n{}".format(partner.street, partner.street2)
+            lines = [partner.street, partner.street2]
+            lines = list(filter(lambda x: x, lines))
+            partner.street_address = "\n".join(lines) if lines else False
+
