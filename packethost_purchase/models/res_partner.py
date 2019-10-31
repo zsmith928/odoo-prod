@@ -13,4 +13,4 @@ class Partner(models.Model):
     @api.depends("street", "street2")
     def _compute_street_address(self):
         for partner in self:
-            partner.street_address = "%(street)s\n%(street2)s".format(street, street2)
+            partner.street_address = "%(street)s\n%(street2)s".format(partner.street, partner.street2)
