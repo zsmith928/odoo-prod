@@ -8,10 +8,14 @@
             <field name="email_from">${object.sudo().create_uid.email_formatted | safe}</field>
             <field name="email_from">help@packet.com</field>
             <field name="partner_to">${object.partner_id.id}</field>
+            <!-- gye: Emails require inline styles -->
             <field name="body_html" type="html">
 <div style="margin: 0px; padding: 0px;">
     <p style="margin: 0px; padding: 0px; font-size: 13px;">New inventory for ${object.picking_type_id.warehouse_id.name}</p>
+    <p style="margin: 0px; padding: 0px; font-size: 13px;">PO Number: ${object.name}</p>
+    <t t-set="address" t-value="object.partner_id && ' '.join(object.partner_id.street, object.partner_id.street2).strip()"/>
     <p style="margin: 0px; padding: 0px; font-size: 13px;">Vendor: ${object.partner_id.name}</p>
+    <p t-if="address" style="margin: 0px; padding: 0px; font-size: 13px;">Address: ${object.street}</p>
     <p style="margin: 0px; padding: 0px; font-size: 13px;">Products:</p>
     <ul>
         % for line in object.order_line:
