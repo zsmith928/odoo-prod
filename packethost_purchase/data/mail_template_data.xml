@@ -14,9 +14,9 @@
     <p style="margin: 0px; padding: 0px; font-size: 13px;">New inventory for ${object.picking_type_id.warehouse_id.name}</p>
     <p style="margin: 0px; padding: 0px; font-size: 13px;">PO Number: ${object.name}</p>
     <p style="margin: 0px; padding: 0px; font-size: 13px;">Vendor: ${object.partner_id.name}</p>
-    % if object.partner_id.street_address
+    % if object.partner_id.street_address:
     <p style="margin: 0px; padding: 0px; font-size: 13px;">Address: ${object.partner_id.street_address}</p>
-    % endif %
+    % endif
     <p style="margin: 0px; padding: 0px; font-size: 13px;">Products:</p>
     <ul>
         % for line in object.order_line:
