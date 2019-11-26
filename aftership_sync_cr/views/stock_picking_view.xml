@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_picking_form_aftership" model="ir.ui.view">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button type="object" name="action_view_tracking" class="oe_stat_button" icon="fa-truck"
+                            attrs="{'invisible': ['|',('picking_type_code','!=','incoming'),('aftership_tracking_id','=',False)]}"
+                            string="Tracking">
+                    </button>
+                </xpath>
+                <xpath expr="//field[@name='origin']" position="after">
+                    <field name="aftership_tracking_id" invisible="1"/>
+                    <field name="courier_id" attrs="{'invisible': [('picking_type_code','!=','incoming')]}"/>
+                    <field name="tracking_no" readonly="1"
+                           attrs="{'invisible': ['|',('picking_type_code','!=','incoming'),('courier_id','=',False)]}"/>
+                    <field name="aftership_state"
+                           attrs="{'invisible': ['|',('picking_type_code','!=','incoming'),('aftership_tracking_id','=',False)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
