@@ -7,7 +7,7 @@ Task ID: 1966636
 
 New email template to send RFQs should include product lines with the following information:
 
-- "Notes" (x_studio_notes): Studio field on RFQ
+- "Notes" (notes_custom): Studio field on RFQ
 - "Delivery Location" (picking_type_id.warehouse_id): Stock location where the products would be received
 - "PO Number"
 - "Vendor" (partner_id)
